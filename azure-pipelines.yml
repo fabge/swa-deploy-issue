@@ -1,6 +1,6 @@
 steps:
   - task: AzureCLI@2
-    displayName: Get variables
+    displayName: get variables
     inputs:
       azureSubscription: fabian.dev.Azure
       scriptType: bash
