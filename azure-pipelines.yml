@@ -10,6 +10,11 @@ steps:
         APIKEY=$(az staticwebapp secrets list --name chatbot-test --query "properties.apiKey" -o tsv)
         echo "##vso[task.setvariable variable=apiKey;issecret=true]$APIKEY"
 
+  - script: |
+      pip install mkdocs-material
+      mkdocs build
+    displayName: 'install and build mkdocs'
+
   - task: AzureStaticWebApp@0
     inputs:
       app_location: 'site'
