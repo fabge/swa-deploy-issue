@@ -1,0 +1,15 @@
+{
+  "$schema": "https://aka.ms/azure/static-web-apps-cli/schema",
+  "configurations": {
+    "chatbot": {
+      "appLocation": ".",
+      "apiLocation": "api",
+      "apiLanguage": "python",
+      "apiVersion": "3.10",
+      "outputLocation": "site",
+      "appBuildCommand": "mkdocs build",
+      "run": "mkdocs serve",
+      "appDevserverUrl": "http://localhost:8000"
+    }
+  }
+}
