@@ -21,3 +21,4 @@ steps:
       output_location: '.'
       api_location: 'api'
       azure_static_web_apps_api_token: $(apiKey)
+      config_file_location: '.'

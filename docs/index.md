@@ -14,7 +14,16 @@ async function fetchStreamingData() {
   const apiUrl = isLocalhost ? 'http://localhost:7071/api/message' : '/api/message';
 
   try {
-    const response = await fetch(apiUrl);
+    const response = await fetch(apiUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        text: 'what does one platform do?',
+        messages: []
+      })
+    });
 
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
