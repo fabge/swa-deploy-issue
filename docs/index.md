@@ -1,12 +1,12 @@
 # Welcome to MkDocs
 
-<div id="stream-container"></div>
+<div id="response-container"></div>
 
-<button id="stream-button" onclick="fetchStreamingData()">Start Stream</button>
+<button id="fetch-button" onclick="fetchData()">Get Response</button>
 
 <script>
-async function fetchStreamingData() {
-  const container = document.getElementById('stream-container');
+async function fetchData() {
+  const container = document.getElementById('response-container');
   container.innerHTML = '';
 
   // Determine API URL based on current hostname
@@ -14,34 +14,14 @@ async function fetchStreamingData() {
   const apiUrl = isLocalhost ? 'http://localhost:7071/api/message' : '/api/message';
 
   try {
-    const response = await fetch(apiUrl, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        text: 'what does one platform do?',
-        messages: []
-      })
-    });
+    const response = await fetch(apiUrl);
 
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
 
-    const reader = response.body.getReader();
-    const decoder = new TextDecoder();
-
-    while (true) {
-      const { value, done } = await reader.read();
-
-      if (done) break;
-
-      const text = decoder.decode(value, { stream: true });
-      const div = document.createElement('div');
-      div.textContent = text;
-      container.appendChild(div);
-    }
+    const data = await response.text();
+    container.textContent = data;
   } catch (error) {
     console.error('Error:', error);
     container.innerHTML = `<div class="error">Error: ${error.message}</div>`;
@@ -50,7 +30,7 @@ async function fetchStreamingData() {
 </script>
 
 <style>
-#stream-container {
+#response-container {
   min-height: 100px;
   max-height: 400px;
   overflow-y: auto;
@@ -62,7 +42,7 @@ async function fetchStreamingData() {
 .error {
   color: red;
 }
-#stream-button {
+#fetch-button {
   background-color: #4CAF50;
   color: white;
   border: none;
@@ -76,10 +56,10 @@ async function fetchStreamingData() {
   border-radius: 4px;
   transition: background-color 0.3s;
 }
-#stream-button:hover {
+#fetch-button:hover {
   background-color: #45a049;
 }
-#stream-button:active {
+#fetch-button:active {
   background-color: #3e8e41;
   transform: translateY(1px);
 }
